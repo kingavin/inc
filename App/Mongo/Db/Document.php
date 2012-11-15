@@ -78,7 +78,8 @@ abstract class App_Mongo_Db_Document
 	
 	public function getDb()
 	{
-		
+		$adapter = App_Mongo_Db_Collection::setDefaultAdapter($mongoDb);
+		return $adapter->getDb();
 	}
 	
 	public function getCollection()

@@ -2,7 +2,6 @@
 namespace Core\Mongo\Db;
 
 use Mongo;
-use Zend\Debug\Debug;
 
 class Adapter
 {
@@ -14,11 +13,8 @@ class Adapter
 	
 	public function __construct($config)
 	{
-//		echo 'adapter inited!!';
-//		Debug::dump($config);
-		
 		$this->_dbHost = $config['host'];
-		$this->_dbName = 'cms_1';
+		$this->_dbName = $config['dbName'];
 	}	
 	
 	public function getMongo()
