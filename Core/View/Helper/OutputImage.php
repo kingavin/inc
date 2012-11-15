@@ -11,8 +11,8 @@ class OutputImage extends AbstractHelper
 		if(isset($urlArr['host'])) {
 			return $url;
 		} else {
-			$siteFolder = \Class_Server::getSiteFolder();
-			return \Class_Server::getImageUrl().'/'.$siteFolder.'/'.$urlName;
+			$fileFolderUrl = $this->view->siteConfig('fileFolderUrl');
+			return $fileFolderUrl.'/'.$urlName;
 		}
     }
 }
