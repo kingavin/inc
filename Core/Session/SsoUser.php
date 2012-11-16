@@ -1,6 +1,7 @@
 <?php
 namespace Core\Session;
 
+use ArrayObject;
 use Zend\Session\Container;
 
 abstract class SsoUser
@@ -44,36 +45,40 @@ abstract class SsoUser
 		return $this->_ssoUser->offsetExists($key);
 	}
 	
-	public function isLogin()
+	public function isLogin($boolValue = null)
 	{
-		if($this->getSessionValue('isLogin')) {
-			return true;
+		if(is_null($boolValue)) {
+			return $this->getSessionValue('isLogin');
+		} else {
+			$this->setSessionValue('isLogin', $boolValue);
 		}
-		return false;
 	}
 	
-	public function setUserData($key, $val = null)
+	public function setUserData(array $dataArr)
 	{
-		if(is_array($key)) {
-			$this->setSessionValue('userData', $key);
-		}
+		$this->setSessionValue('userData', $dataArr);
 	}
 	
 	public function getUserData($key = null)
 	{
-		if($this->isLogin()) {
-			if($key == null) {
-				$userData = $this->getSessionValue('userData');
-				return $userData;
-			} else {
-				$userData = $this->getSessionValue('userData');
-				return $userData[$key];
-			}
+		if($key == null) {
+			$userData = $this->getSessionValue('userData');
+			return $userData;
+		} else {
+			$userData = $this->getSessionValue('userData');
+			return $userData[$key];
 		}
 		
 		return null;
 	}
-
+	
+	public function addUserData($key, $val)
+	{
+		$userData = $this->getUserData();
+		$userData[$key] = $val;
+		$this->setUserData($userData);
+	}
+	
 	public function __toString()
 	{
 		$it = $this->_ssoUser->getIterator();
