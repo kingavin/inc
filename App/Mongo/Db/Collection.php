@@ -182,6 +182,12 @@ abstract class App_Mongo_Db_Collection
 		return $cursor;
 	}
 	
+	public function group($key, $cond, $reduce, $initial)
+	{
+		$cursor = $this->getCollection()->group($key, $cond, $reduce, $initial);
+		return $cursor;
+	}
+	
 	public function insert(array $document, array $options = array())
 	{
 		return $this->getCollection()->insert($document, $options);
