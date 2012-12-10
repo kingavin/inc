@@ -85,9 +85,11 @@ abstract class SsoUser
 		$str = "";
 		foreach($it as $key => $val) {
 			if(is_array($val)) {
+				$str.= $key.' => {<br />';
 				foreach($val as $k => $v) {
 					$str.= '&nbsp;&nbsp;&nbsp;&nbsp;'.$k.' => '.$v.'<br />';
 				}
+				$str.= '}<br />';
 			} else {
 				$str.= $key.' => '.$val.'<br />';
 			}
