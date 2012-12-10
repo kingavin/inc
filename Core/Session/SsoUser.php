@@ -82,12 +82,17 @@ abstract class SsoUser
 	public function __toString()
 	{
 		$it = $this->_ssoUser->getIterator();
-		
+		$str = "";
 		foreach($it as $key => $val) {
-			echo $key.' => '.$val.'<br />';
+			if(is_array($val)) {
+				foreach($val as $k => $v) {
+					$str.= '&nbsp;&nbsp;&nbsp;&nbsp;'.$k.' => '.$v.'<br />';
+				}
+			} else {
+				$str.= $key.' => '.$val.'<br />';
+			}
 		}
-		die('why??');
-		return $this->_ssoUser->getStorage();
+		return $str;
 	}
 	
 	abstract public function getServiceKey();
