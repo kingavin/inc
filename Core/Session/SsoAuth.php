@@ -63,6 +63,10 @@ class SsoAuth
 				exit(0);
 			}
 		} else if(!$csu->hasPrivilege()) {
+			echo $csu;
+			die();
+			
+			
 			$homeLocation = $csu->getHomeLocation();
 			header("Location: ".$homeLocation);
 			exit(0);
