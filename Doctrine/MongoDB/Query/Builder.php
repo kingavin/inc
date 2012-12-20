@@ -74,7 +74,7 @@ class Builder
         'hints' => array(),
         'immortal' => false,
         'snapshot' => false,
-        'slaveOkay' => false,
+        'slaveOkay' => null,
         'eagerCursor' => false,
         'mapReduce' => array(
             'map' => null,
@@ -129,7 +129,7 @@ class Builder
     }
 
     /**
-     * Set slave okaye.
+     * Set slave okay.
      *
      * @param bool $bool
      * @return Builder
@@ -354,9 +354,9 @@ class Builder
      */
     public function selectSlice($fieldName, $skip, $limit = null)
     {
-        $slice = array($skip);
+        $slice = $skip;
         if ($limit !== null) {
-            $slice[] = $limit;
+            $slice = array($skip, $limit);
         }
         $this->query['select'][$fieldName] = array($this->cmd . 'slice' => $slice);
         return $this;
@@ -586,14 +586,23 @@ class Builder
     }
 
     /**
-     * Set the "maxDistance" option for a geoNear command query.
+     * Set the "maxDistance" option for a geoNear command query or add
+     * $maxDistance criteria to the query.
+     *
+     * If the query type is geospatial (i.e. geoNear() was called), the
+     * "maxDistance" command option will be set; otherwise, $maxDistance will be
+     * added to the current expression.
      *
      * @param string $maxDistance
      * @return Builder
      */
     public function maxDistance($maxDistance)
     {
-        $this->query['geoNear']['maxDistance'] = $maxDistance;
+        if (Query::TYPE_GEO_LOCATION === $this->query['type']) {
+            $this->query['geoNear']['maxDistance'] = $maxDistance;
+        } else {
+            $this->expr->maxDistance($maxDistance);
+        }
         return $this;
     }
 
@@ -610,7 +619,7 @@ class Builder
     }
 
     /**
-     * Add where $near query.
+     * Add $near criteria to the query.
      *
      * @param string $x
      * @param string $y
@@ -623,7 +632,7 @@ class Builder
     }
 
     /**
-     * Add where $within $box query.
+     * Add $withinBox criteria to the query.
      *
      * @param string $x1
      * @param string $y1
@@ -638,7 +647,7 @@ class Builder
     }
 
     /**
-     * Add where $within $center query.
+     * Add $withinCenter criteria to the query.
      *
      * @param string $x
      * @param string $y
@@ -652,7 +661,7 @@ class Builder
     }
 
     /**
-     * Add where $within $polygon query.
+     * Add $withinPolygon criteria to the query.
      *
      * @param array $point,... Three or more point coordinate tuples
      * @return Builder

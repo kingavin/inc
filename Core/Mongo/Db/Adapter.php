@@ -1,7 +1,7 @@
 <?php
 namespace Core\Mongo\Db;
 
-use Mongo;
+use MongoClient;
 
 class Adapter
 {
@@ -51,7 +51,7 @@ class Adapter
             return;
         }
         
-        $m = new Mongo($this->_dbHost, array('persist' => 'x'));
+        $m = new MongoClient($this->_dbHost);
         $this->_mongo = $m;
         $this->_db = $m->selectDb($this->_dbName);
         \App_Mongo_Db_Collection::setDefaultAdapter($this);
