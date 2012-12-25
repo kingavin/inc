@@ -9,58 +9,6 @@ abstract class App_Mongo_Tree_Doc extends App_Mongo_Db_Document
 	abstract protected function _getIndex();
 	abstract protected function _getReadLeafCollection();
 	
-//	public function render()
-//	{
-//		$str = "<ul>";
-//		$index = $this->_getIndex();
-//		
-//		//Zend_Debug::dump($index);
-//		
-//		foreach($index as $key => $val) {
-//			$str.= $this->_renderItem($val);
-//			
-//			
-//		}
-//		return $str.'</ul>';
-//	}
-//	
-//	protected function _renderItem($item)
-//	{
-//		$tmpStr = '<li>'.$item['label'].'<ul>';
-//		if(isset($item['children']) && count($item['children']) > 0) {
-//			foreach($item['children'] as $cItem) {
-//				$tmpStr.= $this->_renderItem($cItem);
-//			}
-//		}
-//		return $tmpStr.'</ul></li>';
-//	}
-	
-	
-//	
-//	
-//public function toMultiOptions()
-//	{
-//		$arr = array();
-//		foreach($this->_head->getChildren() as $cLink) {
-//			$this->_getChildrenAsMultiOptions($cLink, $arr, '');
-//		}
-//		return $arr;
-//	}
-//	
-//	
-//	protected function _getChildrenAsMultiOptions(Class_Link $link, &$arr, $prefix)
-//	{
-//		$arr[$link->getId()] = $prefix.$link->label;
-//		if($link->hasChildren()) {
-//			foreach($link->getChildren() as $cLink) {
-//				$this->_getChildrenAsMultiOptions($cLink, $arr, $prefix.'--');
-//			}
-//		}
-//		return ;
-//	}
-	
-	
-	
 	public function getTrail($id)
     {
     	if(is_null($this->_trail)) {

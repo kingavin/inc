@@ -91,7 +91,7 @@ abstract class App_Mongo_Db_Collection
 	public function fetchOne()
 	{
 		$data = $this->getCollection()->findOne($this->_filters, $this->_fields);
-		
+		$this->resetFilter();
 		if (is_null($data))
 			return null;
 		
@@ -110,7 +110,7 @@ abstract class App_Mongo_Db_Collection
 		if(!is_null($this->_sort)) {
 			$cursor->sort($this->_sort);
 		}
-		
+		$this->resetFilter();
 		if($convertId) {
 			$data = array();
 			foreach($cursor as $id => $row) {
@@ -154,6 +154,7 @@ abstract class App_Mongo_Db_Collection
 				$data[$id] = $row[$field];
 			}
 		}
+		$this->resetFilter();
 		return $data;
 	}
 	
@@ -173,7 +174,13 @@ abstract class App_Mongo_Db_Collection
 		foreach($cursor as $id => $row) {
 			$docs[] = $this->create($row, false);
 		}
+		$this->resetFilter();
 		return $docs;
+	}
+	
+	public function resetFilter()
+	{
+		$this->_filters = array();
 	}
 	
 	public function count()
