@@ -43,6 +43,47 @@ abstract class App_Mongo_Tree_Doc extends App_Mongo_Db_Document
     	return false;
     }
     
+    public function getLeaf($id)
+    {
+    	$index = $this->_getIndex();
+    	
+    	if(is_null($index)) {
+    		$index = array();
+    	}
+    	
+    	$leaf = null;
+    	foreach($index as $indexChild) {
+    		$leaf = $this->_findLeaf($id, $indexChild);
+    		if(!is_null($leaf)) {
+    			return $leaf;
+    		}
+    	}
+    	return $leaf;
+    }
+    
+    public function _findLeaf($id, $val)
+    {
+    	$result = null;
+    	
+    	if($val['id'] == $id) {
+    		return $val;
+    	}
+    	
+		if(isset($val['children'])) {
+	    	foreach($val['children'] as $v) {
+				if($v['id'] == $id) {
+					$result = $v;
+				} else {
+					$result = $this->_findLeaf($id, $v);
+				}
+				if(!is_null($result)) {
+					return $result;
+				}
+			}
+    	}
+    	return $result;
+    }
+    
     public function getLevelOneTree($leafId)
     {
     	$trail = $this->getTrail($leafId);
