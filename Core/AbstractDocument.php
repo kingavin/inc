@@ -1,9 +1,10 @@
 <?php
 namespace Core;
 
+use Zend\InputFilter\InputFilterAwareInterface, Zend\InputFilter\InputFilterInterface;
 use Doctrine\Common\Persistence\PersistentObject;
 
-class AbstractDocument extends PersistentObject
+class AbstractDocument extends PersistentObject implements InputFilterAwareInterface
 {
 	public function setFromArray($dataArray)
 	{
@@ -12,5 +13,20 @@ class AbstractDocument extends PersistentObject
 			
 		}
 		return $this;
+	}
+	
+	public function toArray()
+	{
+		return get_object_vars($this);
+	}
+	
+	public function setInputFilter(InputFilterInterface $inputFilter)
+	{
+		throw new \Exception("Not used");
+	}
+	
+	public function getInputFilter()
+	{
+		throw new \Exception("Not used");
 	}
 }
