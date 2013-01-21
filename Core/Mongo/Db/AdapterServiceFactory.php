@@ -12,7 +12,7 @@ class AdapterServiceFactory implements FactoryInterface
     {
         $config = $serviceLocator->get('Configuration');
         if($config['mongo_db']['dbName'] == 'cms') {
-        	$siteConfig = $serviceLocator->get('Fucms\SiteConfig');
+        	$siteConfig = $serviceLocator->get('ConfigObject\EnvironmentConfig');
         	$config['mongo_db']['dbName'] = 'cms_'.$siteConfig->globalSiteId;
         }
         $adapter = new Adapter($config['mongo_db']);

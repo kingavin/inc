@@ -3,13 +3,12 @@ namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
-class SiteConfig extends AbstractPlugin
+class EnvConfig extends AbstractPlugin
 {
-	public function __invoke($key)
+	public function __invoke()
 	{
 		$controller = $this->getController();
 		$sm = $controller->getServiceLocator();
-		$siteConfig = $sm->get('ConfigObject\EnvironmentConfig');
-		return $siteConfig->$key;
+		return $sm->get('ConfigObject\EnvironmentConfig');
 	}
 }

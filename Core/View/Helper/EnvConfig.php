@@ -5,7 +5,7 @@ use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 
-class SiteConfig extends AbstractHelper implements ServiceManagerAwareInterface
+class EnvConfig extends AbstractHelper implements ServiceManagerAwareInterface
 {
 	public $helperPluginManager;
 	
