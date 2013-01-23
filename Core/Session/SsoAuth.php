@@ -7,11 +7,9 @@ use Core\Session\SsoUser;
 class SsoAuth
 {
 	const CMS = 'cms';
-	const PM = 'pm';
 	const SERVICE_ACCOUNT = 'service-account';
 	const SERVICE_FILE = 'service-file';
 	const SERVICE_FORM = 'service-form';
-	const SERVICE_FORUM = 'service-forum';
 	
 	protected $_assu;
 	protected $_serviceType;
@@ -75,7 +73,7 @@ class SsoAuth
 	
 	protected function _auth($st)
 	{
-		$curl = curl_init('http://sso.enorange.cn/sso/info/format/xml');
+		$curl = curl_init('http://account.enorange.com/sso/info.xml');
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, array('token' => $st));
@@ -100,6 +98,7 @@ class SsoAuth
 		$r = urlencode($returnUrl);
 		$t = urlencode($token);
 		
-		return 'http://sso.enorange.cn/sso/login?consumer='.$c.'&ret='.$r.'&timeStamp='.$timeStamp.'&token='.$t.'&sig='.$sig;
+		return 'http://account.enorange.com/sso/login?consumer='.$c.'&ret='.$r.'&timeStamp='.$timeStamp.'&token='.$t.'&sig='.$sig;
+		//return 'http://account.eo.test/sso/login?consumer='.$c.'&ret='.$r.'&timeStamp='.$timeStamp.'&token='.$t.'&sig='.$sig;
 	}
 }
