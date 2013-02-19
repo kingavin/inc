@@ -54,9 +54,15 @@ abstract class SsoUser
 		}
 	}
 	
-	public function setUserData(array $dataArr)
+	public function setUserData($dataArr, $value = null)
 	{
-		$this->setSessionValue('userData', $dataArr);
+		if(is_array($dataArr)) {
+			$this->setSessionValue('userData', $dataArr);
+		} else if(is_string($dataArr)) {
+			$userData = $this->getUserData();
+			$userData[$dataArr] = $value;
+			$this->setSessionValue('userData', $userData);
+		}
 	}
 	
 	public function getUserData($key = null)
