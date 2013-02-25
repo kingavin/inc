@@ -105,7 +105,7 @@ class BootstrapRow extends FormRow
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
-        
+
         $label               = $element->getLabel();
         $elementErrorsHelper->setMessageOpenFormat('<div%s>')
                             ->setMessageSeparatorString('<br/>')
@@ -123,6 +123,7 @@ class BootstrapRow extends FormRow
 
         $markup = "";
 
+        
         if ($type == 'hidden') {
 			$markup .= $elementHelper->render($element);
 			$markup .= $elementErrorsHelper->render($element, array('class' => 'alert alert-error'));
@@ -191,7 +192,6 @@ class BootstrapRow extends FormRow
                 $elementStatus
             );
         }
-        
         return $markup;
     }
     

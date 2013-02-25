@@ -27,7 +27,9 @@ class TabForm extends AbstractHelper
 	        	if(is_array($setting['content'])) {
 	        		$output .= '<dl class="admin-zendform">';
 	        		foreach($setting['content'] as $elKey) {
-	        			$output .= $this->renderRow($form->get($elKey));
+	        			$el = $form->get($elKey);
+// 	        			echo get_class($el).'<br />';
+	        			$output .= $this->renderRow($el);
 	        		}
 	        		$output .= '</dl>';
 	        	} else {
