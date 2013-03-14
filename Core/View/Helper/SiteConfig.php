@@ -2,16 +2,21 @@
 namespace Core\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SiteConfig extends AbstractHelper implements ServiceManagerAwareInterface
+class SiteConfig extends AbstractHelper implements ServiceLocatorAwareInterface
 {
 	public $helperPluginManager;
 	
-	public function setServiceManager(ServiceManager $serviceManager)
+	public function setServiceLocator(ServiceLocatorInterface $serviceManager)
 	{
 		$this->helperPluginManager = $serviceManager;
+	}
+	
+	public function getServiceLocator()
+	{
+		return $this->helperPluginManager;
 	}
 	
     public function __invoke($configKey)
