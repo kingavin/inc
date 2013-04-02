@@ -15,7 +15,8 @@ class AdapterServiceFactory implements FactoryInterface
         	$siteConfig = $serviceLocator->get('ConfigObject\EnvironmentConfig');
         	$config['mongo_db']['dbName'] = 'cms_'.$siteConfig->globalSiteId;
         }
-        $adapter = new Adapter($config['mongo_db']);
+        $mongoClient = $serviceLocator->get('MongoClient');
+        $adapter = new Adapter($mongoClient, $config['mongo_db']['dbName']);
         
         return $adapter;
     }

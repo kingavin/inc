@@ -8,19 +8,19 @@ class Adapter
 	protected $_dbName = null;
 	protected $_dbHost = null;
 	
-	protected $_mongo = null;
+	protected $_mongoClient = null;
 	protected $_db = null;
 	
-	public function __construct($config)
+	public function __construct($mongoClient, $dbName)
 	{
-		$this->_dbHost = $config['host'];
-		$this->_dbName = $config['dbName'];
-	}	
+		$this->_mongoClient = $mongoClient;
+		$this->_dbName = $dbName;
+	}
 	
 	public function getMongo()
 	{
 		$this->_connect();
-		return $this->_mongo;
+		return $this->_mongoClient;
 	}
 	
 	public function getDb()
@@ -51,9 +51,7 @@ class Adapter
             return;
         }
         
-        $m = new MongoClient($this->_dbHost);
-        $this->_mongo = $m;
-        $this->_db = $m->selectDb($this->_dbName);
+        $this->_db = $this->_mongoClient->selectDb($this->_dbName);
         \App_Mongo_Db_Collection::setDefaultAdapter($this);
         return;
     }
