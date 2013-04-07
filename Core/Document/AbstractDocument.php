@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace Core\Document;
 
 use Zend\InputFilter\InputFilterAwareInterface, Zend\InputFilter\InputFilterInterface;
 use Doctrine\Common\Persistence\PersistentObject;
