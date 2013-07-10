@@ -6,6 +6,11 @@ use Doctrine\Common\Persistence\PersistentObject;
 
 class AbstractDocument extends PersistentObject implements InputFilterAwareInterface
 {
+	
+	public function isNew()
+	{
+		return empty($this->id);
+	}
 	/**
 	 * @todo these two functinos are to be replaced by getArrayCopy & arrayExchange
 	 * @param unknown $dataArray
