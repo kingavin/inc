@@ -84,6 +84,27 @@ abstract class App_Mongo_Tree_Doc extends App_Mongo_Db_Document
     	return $result;
     }
     
+	public function getLeafIds($id)
+	{
+		$leafArr = $this->getLeaf($id);
+		
+		$leafIds = array();
+		$this->_getChildrenLeafIds($leafArr, $leafIds);
+		return $leafIds;
+		
+	}
+	
+	public function _getChildrenLeafIds($leafArr, &$leafIds)
+	{
+		$leafIds[] = $leafArr['id'];
+		if(isset($leafArr['children'])) {
+			foreach($leafArr['children'] as $v) {
+				$this->_getChildrenLeafIds($v, $leafIds)
+			}
+		}
+		return ;
+	}
+	
     public function getLevelOneTree($leafId)
     {
     	$trail = $this->getTrail($leafId);
