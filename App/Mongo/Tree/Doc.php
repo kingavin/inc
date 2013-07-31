@@ -99,7 +99,7 @@ abstract class App_Mongo_Tree_Doc extends App_Mongo_Db_Document
 		$leafIds[] = $leafArr['id'];
 		if(isset($leafArr['children'])) {
 			foreach($leafArr['children'] as $v) {
-				$this->_getChildrenLeafIds($v, $leafIds)
+				$this->_getChildrenLeafIds($v, $leafIds);
 			}
 		}
 		return ;
